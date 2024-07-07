@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "738644637902",
+    "project_id": "am-shopping-d47fe",
+    "storage_bucket": "am-shopping-d47fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738644637902:android:c0551907ec1ae6ca4f389f",
+        "android_client_info": {
+          "package_name": "com.momtaz.amshopping"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZTKtek6hhUXA51OIgpXlTB6pWzu0E83o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
