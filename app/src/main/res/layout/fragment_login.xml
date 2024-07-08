@@ -81,7 +81,7 @@
             android:textColor="@color/black"
             android:layout_marginTop="15dp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/buttonLoginLogin"
             android:layout_width="0dp"
             android:layout_height="55dp"
@@ -90,7 +90,9 @@
             app:layout_constraintTop_toBottomOf="@id/tvForgotPasswordLogin"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLift"
             app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
-            android:text="Login"/>
+            android:text="Login"
+            app:spinning_bar_color="@color/white"
+            />
 
         <ImageView
             android:id="@+id/facebookLogin"

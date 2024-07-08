@@ -1,4 +1,4 @@
-package com.momtaz.amshopping.fragment
+package com.momtaz.amshopping.fragment.loginRegister
 
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.momtaz.amshopping.R
 import com.momtaz.amshopping.data.User
 import com.momtaz.amshopping.databinding.FragmentRegisterBinding
 import com.momtaz.amshopping.util.RegisterValidation
@@ -15,7 +17,6 @@ import com.momtaz.amshopping.util.Resource
 import com.momtaz.amshopping.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
@@ -33,6 +34,9 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.tvDoYouHaveAccount.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
         binding.apply {
             buttonRegisterRegister.setOnClickListener {
                 val user = User(

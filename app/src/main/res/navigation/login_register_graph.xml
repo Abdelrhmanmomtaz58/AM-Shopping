@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_register_graph"
-    app:startDestination="@id/registerFragment">
+    app:startDestination="@id/introductionFragment">
 
     <fragment
         android:id="@+id/introductionFragment"
@@ -16,21 +16,23 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.momtaz.amshopping.fragment.LoginFragment"
+        android:name="com.momtaz.amshopping.fragment.loginRegister.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/accountOptionsFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_register"
         android:id="@+id/registerFragment"
-        android:name="com.momtaz.amshopping.fragment.RegisterFragment"
+        android:name="com.momtaz.amshopping.fragment.loginRegister.RegisterFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/accountOptionsFragment" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_account_options"
