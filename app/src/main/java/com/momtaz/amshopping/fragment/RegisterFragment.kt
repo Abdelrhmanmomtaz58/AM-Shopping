@@ -10,10 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.momtaz.amshopping.data.User
 import com.momtaz.amshopping.databinding.FragmentRegisterBinding
+import com.momtaz.amshopping.util.RegisterValidation
 import com.momtaz.amshopping.util.Resource
 import com.momtaz.amshopping.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
@@ -37,28 +40,51 @@ class RegisterFragment : Fragment() {
                     edLastNameRegister.text.toString().trim(),
                     edEmailRegister.text.toString().trim()
                 )
-                val password =  edPasswordRegister.text.toString()
-                viewModel.createAccountWithEmailAndPassword(user,password)
+                val password = edPasswordRegister.text.toString()
+                viewModel.createAccountWithEmailAndPassword(user, password)
             }
         }
         @Suppress("DEPRECATION")
         lifecycleScope.launchWhenStarted {
-            viewModel.register.collect{
-                when(it){
-                    is Resource.Loading ->{
+            viewModel.register.collect {
+                when (it) {
+                    is Resource.Loading -> {
                         binding.buttonRegisterRegister.startAnimation()
 
                     }
-                    is Resource.Success ->{
-                        Log.d("haaaa",it.data.toString())
+
+                    is Resource.Success -> {
+                        Log.d("haaaa", it.data.toString())
                         binding.buttonRegisterRegister.revertAnimation()
                     }
-                    is  Resource.Error ->{
-                        Log.e("a7a",it.message.toString())
+
+                    is Resource.Error -> {
+                        Log.e("a7a", it.message.toString())
                         binding.buttonRegisterRegister.revertAnimation()
                     }
 
                     else -> Unit
+                }
+            }
+        }
+        @Suppress("DEPRECATION")
+        lifecycleScope.launchWhenStarted {
+            viewModel.validation.collect { validation ->
+                if (validation.email is RegisterValidation.Failed) {
+                    withContext(Dispatchers.Main) {
+                        binding.edEmailRegister.apply {
+                            requestFocus()
+                            error = validation.email.message
+                        }
+                    }
+                }
+                if (validation.password is RegisterValidation.Failed) {
+                    withContext(Dispatchers.Main) {
+                        binding.edPasswordRegister.apply {
+                            requestFocus()
+                            error = validation.password.message
+                        }
+                    }
                 }
             }
         }
