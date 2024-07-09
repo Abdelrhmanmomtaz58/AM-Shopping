@@ -1,4 +1,4 @@
-package com.momtaz.amshopping.fragment
+package com.momtaz.amshopping.fragment.loginRegister
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,7 +16,7 @@ import com.momtaz.amshopping.viewmodel.IntroductionViewModel
 import com.momtaz.amshopping.viewmodel.IntroductionViewModel.Companion.ACCOUNT_OPTIONS_FRAGMENT
 import com.momtaz.amshopping.viewmodel.IntroductionViewModel.Companion.SHOPPING_ACTIVITY
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+
 @AndroidEntryPoint
 class IntroductionFragment:Fragment(R.layout.fragment_introdcution) {
     private lateinit var binding:FragmentIntrodcutionBinding

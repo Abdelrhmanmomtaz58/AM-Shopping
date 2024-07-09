@@ -1,4 +1,4 @@
-package com.momtaz.amshopping.fragment
+package com.momtaz.amshopping.fragment.loginRegister
 
 import android.os.Bundle
 import android.view.LayoutInflater

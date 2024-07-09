@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/introductionFragment"
-        android:name="com.momtaz.amshopping.fragment.IntroductionFragment"
+        android:name="com.momtaz.amshopping.fragment.loginRegister.IntroductionFragment"
         android:label="IntroductionFragment"
         tools:layout="@layout/fragment_introdcution">
         <action
@@ -40,7 +40,7 @@
     <fragment
         tools:layout="@layout/fragment_account_options"
         android:id="@+id/accountOptionsFragment"
-        android:name="com.momtaz.amshopping.fragment.AccountOptionsFragment"
+        android:name="com.momtaz.amshopping.fragment.loginRegister.AccountOptionsFragment"
         android:label="AccountOptionsFragment" >
         <action
             android:id="@+id/action_accountOptionsFragment_to_loginFragment2"
