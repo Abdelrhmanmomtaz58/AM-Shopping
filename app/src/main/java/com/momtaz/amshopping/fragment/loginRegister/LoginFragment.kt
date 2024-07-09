@@ -10,13 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.momtaz.amshopping.R
 import com.momtaz.amshopping.activites.ShoppingActivity
 import com.momtaz.amshopping.databinding.FragmentLoginBinding
+import com.momtaz.amshopping.dialog.setupBottomSheetDialog
 import com.momtaz.amshopping.util.Resource
 import com.momtaz.amshopping.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -41,6 +43,33 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 val email = edEmailLogin.text.toString().trim()
                 val password = edPasswordLogin.text.toString()
                 viewModel.login(email, password)
+            }
+        }
+        binding.tvForgotPasswordLogin.setOnClickListener {
+            setupBottomSheetDialog {email ->
+                viewModel.resetPassword(email)
+            }
+        }
+        @Suppress("DEPRECATION")
+        lifecycleScope.launchWhenStarted {
+            viewModel.resetPassword.collect{
+                when (it) {
+                    is Resource.Loading -> {
+
+                    }
+
+                    is Resource.Success -> {
+                        Snackbar.make(requireView(),"Reset link was send to your Email",Snackbar.LENGTH_LONG).show()
+                    }
+
+                    is Resource.Error -> {
+                        Snackbar.make(requireView(),"Error ${it.message.toString()}",Snackbar.LENGTH_LONG).show()
+
+                    }
+
+                    else -> UInt
+
+                }
             }
         }
         @Suppress("DEPRECATION")

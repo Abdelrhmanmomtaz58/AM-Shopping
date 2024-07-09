@@ -2,4 +2,6 @@
     <string name="app_name">A&amp;M Shopping</string>
     <string name="rightAddress">The Right Address\nFor Shopping\nAny day</string>
     <string name="qulity">It is now very easy to reach the\nbest quality among the\nproducts on the internet!</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="we_will_send_you_the_password_reset_link_to_your_email">we will send you the password reset link to your email</string>
 </resources>
