@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.momtaz.amshopping.data.Product
 import com.momtaz.amshopping.databinding.ProductRvItemBinding
+import com.momtaz.amshopping.helper.getProductPrice
 
 class BestProductsAdapter : RecyclerView.Adapter<BestProductsAdapter.BestProductsViewHolder>() {
 
@@ -17,20 +18,15 @@ class BestProductsAdapter : RecyclerView.Adapter<BestProductsAdapter.BestProduct
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.apply {
-                product.offerPercentage?.let {
-                    val remainingPercentage = 1f - it
-                    val priceAfterOffer = remainingPercentage * product.price
-                    tvNewPrice.text = "\"\$ ${String.format("%.2f", priceAfterOffer)}\""
-                    tvPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                }
-                if(product.offerPercentage==null)
-                    tvNewPrice.visibility =View.INVISIBLE
+                val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
+                tvNewPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
+                tvPrice.paintFlags = tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                if (product.offerPercentage == null)
+                    tvNewPrice.visibility = View.INVISIBLE
 
-
-                Glide.with(itemView).load(product.images[0])
-                    .into(imgProduct)
-                tvName.text =product.name
-                tvPrice.text="$ ${product.price}"
+                Glide.with(itemView).load(product.images[0]).into(imgProduct)
+                tvPrice.text = "$ ${product.price}"
+                tvName.text = product.name
             }
 
         }
