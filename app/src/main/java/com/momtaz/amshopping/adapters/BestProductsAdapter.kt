@@ -17,19 +17,20 @@ class BestProductsAdapter : RecyclerView.Adapter<BestProductsAdapter.BestProduct
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.apply {
-                Glide.with(itemView).load(product.images[0])
-                    .into(imgProduct)
                 product.offerPercentage?.let {
                     val remainingPercentage = 1f - it
                     val priceAfterOffer = remainingPercentage * product.price
                     tvNewPrice.text = "\"\$ ${String.format("%.2f", priceAfterOffer)}\""
                     tvPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 }
-                if(product.offerPercentage==null){
+                if(product.offerPercentage==null)
                     tvNewPrice.visibility =View.INVISIBLE
-                    tvPrice.text="$ ${product.price}"
-                    tvName.text =product.name
-                }
+
+
+                Glide.with(itemView).load(product.images[0])
+                    .into(imgProduct)
+                tvName.text =product.name
+                tvPrice.text="$ ${product.price}"
             }
 
         }

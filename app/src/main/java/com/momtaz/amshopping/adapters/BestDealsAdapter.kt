@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.momtaz.amshopping.data.Product
 import com.momtaz.amshopping.databinding.BestDealsRvItemBinding
 
+
 class BestDealsAdapter : RecyclerView.Adapter<BestDealsAdapter.BestDealsViewHolder>() {
 
     inner class BestDealsViewHolder(private val binding: BestDealsRvItemBinding) :
