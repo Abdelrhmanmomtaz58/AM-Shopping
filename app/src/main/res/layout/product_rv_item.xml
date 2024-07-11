@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_light"
                 android:text="Chair"
+                android:maxLines="2"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold"
