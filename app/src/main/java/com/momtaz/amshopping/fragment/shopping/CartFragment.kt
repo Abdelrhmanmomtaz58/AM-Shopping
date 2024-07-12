@@ -20,6 +20,7 @@ import com.momtaz.amshopping.util.Resource
 import com.momtaz.amshopping.util.VerticalItemDecoration
 import com.momtaz.amshopping.viewmodel.CartViewModel
 import kotlinx.coroutines.flow.collectLatest
+import java.time.OffsetDateTime
 
 class CartFragment:Fragment(R.layout.fragment_cart) {
     private lateinit var binding : FragmentCartBinding
@@ -38,10 +39,11 @@ class CartFragment:Fragment(R.layout.fragment_cart) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupCartRv()
-
+        var totalPrice =  0f
         lifecycleScope.launchWhenStarted {
             viewModel.productsPrice.collectLatest {price ->
                 price?.let {
+                    totalPrice = it
                     binding.tvTotalPrice.text = "$ $price"
                 }
             }
@@ -55,6 +57,14 @@ class CartFragment:Fragment(R.layout.fragment_cart) {
         }
         cartAdapter.onMinusClick ={
             viewModel.changeQuantity(it,FirebaseCommon.QuantityChanging.DECREASE)
+        }
+        binding.buttonCheckout.setOnClickListener {
+            val action = CartFragmentDirections.actionCartFragmentToBillingFragment(
+                totalPrice = totalPrice,
+                products = cartAdapter.differ.currentList.toTypedArray()
+            )
+            findNavController().navigate(action)
+
         }
         lifecycleScope.launchWhenStarted {
             viewModel.deleteDialog.collectLatest {
