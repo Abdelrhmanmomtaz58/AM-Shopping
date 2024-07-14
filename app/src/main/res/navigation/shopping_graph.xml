@@ -82,5 +82,18 @@
         android:id="@+id/allOrdersFragment"
         android:name="com.momtaz.amshopping.fragment.setting.AllOrdersFragment"
         android:label="AllOrdersFragment"
-        tools:layout="@layout/fragment_orders"/>
+        tools:layout="@layout/fragment_orders">
+        <action
+            android:id="@+id/action_allOrdersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.momtaz.amshopping.fragment.setting.OrderDetailsFragment"
+        android:label="OrderDetailsFragment"
+        tools:layout="@layout/fragment_order_detail">
+        <argument
+            android:name="order"
+            app:argType="com.momtaz.amshopping.data.order.Order" />
+    </fragment>
 </navigation>
