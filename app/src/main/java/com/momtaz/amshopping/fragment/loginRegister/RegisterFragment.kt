@@ -17,6 +17,7 @@ import com.momtaz.amshopping.util.Resource
 import com.momtaz.amshopping.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
@@ -60,10 +61,12 @@ class RegisterFragment : Fragment() {
                     is Resource.Success -> {
                         Log.d("haaaa", it.data.toString())
                         binding.buttonRegisterRegister.revertAnimation()
+                        //note
+                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                     }
 
                     is Resource.Error -> {
-                        Log.e("a7a", it.message.toString())
+                        Log.e("TAG", it.message.toString())
                         binding.buttonRegisterRegister.revertAnimation()
                     }
 

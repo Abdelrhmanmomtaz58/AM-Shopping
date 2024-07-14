@@ -6,6 +6,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import com.google.firebase.storage.FirebaseStorage
 import com.momtaz.amshopping.firebase.FirebaseCommon
 import com.momtaz.amshopping.util.Constants.INTRODUCTION_SP
 import dagger.Module
@@ -23,7 +24,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseFirestoreDatabase()= Firebase.firestore
+    fun provideFirebaseFirestoreDatabase() = Firebase.firestore
 
     @Provides
     fun provideIntroductionSP(
@@ -36,5 +37,9 @@ object AppModule {
     fun provideFirebaseCommon(
         firebaseAuth: FirebaseAuth,
         firestore: FirebaseFirestore
-    )= FirebaseCommon(firestore,firebaseAuth)
+    ) = FirebaseCommon(firestore, firebaseAuth)
+
+    @Provides
+    @Singleton
+    fun provideStorage()= FirebaseStorage.getInstance().reference
 }
