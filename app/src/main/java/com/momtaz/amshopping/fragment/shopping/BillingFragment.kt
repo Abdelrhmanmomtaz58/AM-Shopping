@@ -28,6 +28,7 @@ import com.momtaz.amshopping.viewmodel.BillingViewModel
 import com.momtaz.amshopping.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+
 @AndroidEntryPoint
 class BillingFragment : Fragment() {
     private lateinit var binding: FragmentBillingBinding
@@ -37,7 +38,7 @@ class BillingFragment : Fragment() {
     private val args by navArgs<BillingFragmentArgs>()
     private var products = emptyList<CartProduct>()
     private var totalPrice = 0f
-    private var selectedAddress: Address? =null
+    private var selectedAddress: Address? = null
     private val orderViewModel by viewModels<OrderViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +46,7 @@ class BillingFragment : Fragment() {
         products = args.products.toList()
         totalPrice = args.totalPrice
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,58 +62,81 @@ class BillingFragment : Fragment() {
         setupBillingProductsRv()
         setupAddressRv()
 
+        if (!args.payment) {
+            binding.apply {
+                buttonPlaceOrder.visibility = View.INVISIBLE
+                totalBoxContainer.visibility = View.INVISIBLE
+                middleLine.visibility = View.INVISIBLE
+                bottomLine.visibility = View.INVISIBLE
+            }
+        }
+
         binding.imageAddAddress.setOnClickListener {
             findNavController().navigate(R.id.action_billingFragment_to_addressFragment)
         }
         lifecycleScope.launchWhenStarted {
             billingViewModel.address.collectLatest {
-                when(it){
-                    is Resource.Loading ->{
-                        binding.progressbarAddress.visibility =View.VISIBLE
+                when (it) {
+                    is Resource.Loading -> {
+                        binding.progressbarAddress.visibility = View.VISIBLE
                     }
-                    is Resource.Success ->{
-                        addressAdapter.differ.submitList(it.data)
-                        binding.progressbarAddress.visibility =View.GONE
-                    }
-                    is Resource.Error ->{
-                        binding.progressbarAddress.visibility =View.GONE
-                        Toast.makeText(requireContext(),it.message,Toast.LENGTH_LONG).show()
 
-                    }else -> Unit
+                    is Resource.Success -> {
+                        addressAdapter.differ.submitList(it.data)
+                        binding.progressbarAddress.visibility = View.GONE
+                    }
+
+                    is Resource.Error -> {
+                        binding.progressbarAddress.visibility = View.GONE
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+
+                    }
+
+                    else -> Unit
                 }
             }
         }
 
         lifecycleScope.launchWhenStarted {
             orderViewModel.oder.collectLatest {
-                when(it){
-                    is Resource.Loading ->{
+                when (it) {
+                    is Resource.Loading -> {
                         binding.buttonPlaceOrder.startAnimation()
                     }
-                    is Resource.Success ->{
+
+                    is Resource.Success -> {
                         binding.buttonPlaceOrder.revertAnimation()
                         findNavController().navigateUp()
-                        Snackbar.make(requireView(),"Your order was placed",Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(requireView(), "Your order was placed", Snackbar.LENGTH_LONG)
+                            .show()
                     }
-                    is Resource.Error ->{
-                        binding.buttonPlaceOrder.revertAnimation()
-                        Toast.makeText(requireContext(),it.message,Toast.LENGTH_LONG).show()
 
-                    }else -> Unit
+                    is Resource.Error -> {
+                        binding.buttonPlaceOrder.revertAnimation()
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+
+                    }
+
+                    else -> Unit
                 }
             }
         }
 
         billingProductsAdapter.differ.submitList(products)
-        binding.tvTotalPrice.text= "$ $totalPrice"
+        binding.tvTotalPrice.text = "$ $totalPrice"
 
         addressAdapter.onClick = {
             selectedAddress = it
+            if (!args.payment) {
+                val b = Bundle().apply { putParcelable("address", selectedAddress) }
+                findNavController().navigate(R.id.action_billingFragment_to_addressFragment, b)
+            }
         }
 
         binding.buttonPlaceOrder.setOnClickListener {
-            if (null == selectedAddress){
-                Toast.makeText(requireContext(),"Please select an address",Toast.LENGTH_LONG).show()
+            if (null == selectedAddress) {
+                Toast.makeText(requireContext(), "Please select an address", Toast.LENGTH_LONG)
+                    .show()
                 return@setOnClickListener
             }
             showOrderConfirmationDialog()

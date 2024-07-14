@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.momtaz.amshopping.data.Address
 import com.momtaz.amshopping.databinding.FragmentAddressBinding
 import com.momtaz.amshopping.util.Resource
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.collectLatest
 class AddressFragment : Fragment() {
     private lateinit var binding: FragmentAddressBinding
     val viewModel by viewModels<AddressViewModel>()
+    val args by navArgs<AddressFragmentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +67,19 @@ class AddressFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        val address:Address? = args.address
+        if (address==null){
+            binding.buttonDelelte.visibility =View.GONE
+        }else{
+            binding.apply {
+                edAddressTitle.setText(address.addressTitle)
+                edFullName.setText(address.fullName)
+                edState.setText(address.street)
+                edPhone.setText(address.phone)
+                edCity.setText(address.city)
+                edState.setText(address.state)
+            }
+        }
         binding.apply {
             buttonSave.setOnClickListener {
                 val addressTitle = edAddressTitle.text.toString()
