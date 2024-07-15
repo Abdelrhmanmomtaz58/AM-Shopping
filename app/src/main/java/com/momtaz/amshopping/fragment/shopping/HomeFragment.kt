@@ -10,11 +10,11 @@ import com.momtaz.amshopping.R
 import com.momtaz.amshopping.adapters.HomeViewpagerAdapter
 import com.momtaz.amshopping.databinding.FragmentHomeBinding
 import com.momtaz.amshopping.fragment.categories.AccessoryFragment
-import com.momtaz.amshopping.fragment.categories.ChairFragment
-import com.momtaz.amshopping.fragment.categories.CupboardFragment
-import com.momtaz.amshopping.fragment.categories.FurnitureFragment
+import com.momtaz.amshopping.fragment.categories.MaleFragment
+import com.momtaz.amshopping.fragment.categories.FemaleFragment
+import com.momtaz.amshopping.fragment.categories.OtherFragment
 import com.momtaz.amshopping.fragment.categories.MainCategoryFragment
-import com.momtaz.amshopping.fragment.categories.TableFragment
+import com.momtaz.amshopping.fragment.categories.SportFragment
 
 class HomeFragment: Fragment(R.layout.fragment_home) {
     private lateinit var binding:FragmentHomeBinding
@@ -31,11 +31,11 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         val categoriesFragment = arrayListOf<Fragment>(
             MainCategoryFragment(),
-            ChairFragment(),
-            CupboardFragment(),
-            TableFragment(),
+            MaleFragment(),
+            FemaleFragment(),
+            SportFragment(),
             AccessoryFragment(),
-            FurnitureFragment()
+            OtherFragment()
         )
         binding.viewpagerHome.isUserInputEnabled = false
         val viewpager2Adapter = HomeViewpagerAdapter(categoriesFragment,childFragmentManager,lifecycle)
@@ -43,11 +43,11 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         TabLayoutMediator(binding.tabLayout,binding.viewpagerHome){tab , position ->
             when(position){
                 0 -> tab.text = "Main"
-                1 -> tab.text = "Chair"
-                2 -> tab.text = "Cupboard"
-                3 -> tab.text = "Table"
+                1 -> tab.text = "Male"
+                2 -> tab.text = "Female"
+                3 -> tab.text = "Sport"
                 4 -> tab.text = "Accessory"
-                5 -> tab.text = "Furniture"
+                5 -> tab.text = "Other"
             }
         }.attach()
 

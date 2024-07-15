@@ -14,12 +14,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 @AndroidEntryPoint
-class FurnitureFragment:BaseCategoryFragment() {
+class FemaleFragment:BaseCategoryFragment() {
     @Inject
     lateinit var firestore: FirebaseFirestore
 
     val viewModel by viewModels<CategoryViewModel>{
-        BestCategoryViewModelFactory(firestore, Category.Furniture)
+        BestCategoryViewModelFactory(firestore, Category.Female)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

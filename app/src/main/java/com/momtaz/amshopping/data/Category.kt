@@ -2,9 +2,9 @@ package com.momtaz.amshopping.data
 
 sealed class Category(val category: String) {
 
-    object Chair: Category("Chair")
-    object Cupboard: Category("Cupboard")
-    object Table: Category("Table")
+    object Male: Category("Male")
+    object Female: Category("Female")
+    object Sport: Category("Sport")
     object Accessory: Category("Accessory")
-    object Furniture: Category("Furniture")
+    object Other: Category("Other")
 }

@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_searchFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <argument
+            android:name="product"
+            app:argType="com.momtaz.amshopping.data.Product" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"

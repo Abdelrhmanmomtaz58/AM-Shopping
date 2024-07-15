@@ -20,9 +20,9 @@ class BestDealsAdapter : RecyclerView.Adapter<BestDealsAdapter.BestDealsViewHold
                 product.offerPercentage?.let {
                     val remainingPricePercentage = 1f - it
                     val priceAfterOffer = remainingPricePercentage * product.price
-                    tvNewPrice.text = "$ ${String.format("%.2f",priceAfterOffer)}"
+                    tvNewPrice.text = "EGP ${String.format("%.2f",priceAfterOffer)}"
                 }
-                tvOldPrice.text = "$ ${product.price}"
+                tvOldPrice.text = "EGP ${product.price}"
                 tvDealProductName.text = product.name
             }
         }

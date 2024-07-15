@@ -25,7 +25,7 @@ class BillingProductsAdapter: Adapter<BillingProductsAdapter.BillingProductsView
                 tvBillingProductQuantity.text = billingProduct.quantity.toString()
 
                 val priceAfterPercentage = billingProduct.product.offerPercentage.getProductPrice(billingProduct.product.price)
-                tvProductCartPrice.text = "$ ${String.format("%.2f", priceAfterPercentage)}"
+                tvProductCartPrice.text = "EGP ${String.format("%.2f", priceAfterPercentage)}"
 
                 imageCartProductColor.setImageDrawable(ColorDrawable(billingProduct.selectedColor?: Color.TRANSPARENT))
                 tvCartProductSize.text = billingProduct.selectedSize?:"".also { imageCartProductSize.setImageDrawable(ColorDrawable(Color.TRANSPARENT)) }
