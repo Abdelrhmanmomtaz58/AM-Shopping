@@ -7,9 +7,13 @@ Welcome to **AMShopping**, the ultimate shopping destination that brings a world
 ## Tools
 ### firebase
   firestore
+  
   firebase auth
+  
   firebase storage
+  
   firebase cloud messaging
+  
  ### MVVM Architecture patterns 
  ### Coroutines and flows
  ---
