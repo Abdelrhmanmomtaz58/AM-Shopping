@@ -18,6 +18,7 @@ import com.momtaz.amshopping.adapters.SizesAdapter
 import com.momtaz.amshopping.adapters.ViewPager2Images
 import com.momtaz.amshopping.data.CartProduct
 import com.momtaz.amshopping.databinding.FragmentProductDetailsBinding
+import com.momtaz.amshopping.helper.getProductPrice
 import com.momtaz.amshopping.util.Resource
 import com.momtaz.amshopping.util.hideBottomNavigationView
 import com.momtaz.amshopping.viewmodel.DetailsViewModel
@@ -91,7 +92,12 @@ class ProductDetailsFragment:Fragment() {
 
         binding.apply {
             tvProductName.text =product.name
-            tvProductPrice.text = "$ ${product.price}"
+            if (product.offerPercentage!=null) {
+                val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
+                tvProductPrice.text = "EGP ${String.format("%.2f", priceAfterOffer)}"
+            }else{
+                tvProductPrice.text = "EGP ${product.price}"
+            }
             tvProductDescription.text = product.description
 
             if (product.colors.isNullOrEmpty())
