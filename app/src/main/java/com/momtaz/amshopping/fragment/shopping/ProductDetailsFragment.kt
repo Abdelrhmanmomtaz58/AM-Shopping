@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.momtaz.amshopping.R
 import com.momtaz.amshopping.adapters.ColorsAdapter
 import com.momtaz.amshopping.adapters.SizesAdapter
@@ -112,6 +113,14 @@ class ProductDetailsFragment:Fragment() {
     private fun setupViewpager() {
         binding.apply {
             viewPagerProductImages.adapter = viewpagerAdapter
+            indicator.text = "1 / ${viewpagerAdapter.differ.currentList.size} "
+
+            viewPagerProductImages.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    indicator.text= "${position + 1} / ${viewpagerAdapter.differ.currentList.size}"
+                }
+            })
         }
     }
 

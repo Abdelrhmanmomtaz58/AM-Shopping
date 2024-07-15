@@ -91,6 +91,8 @@ dependencies {
 
     //Coroutines with firebase
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3'
+
+    implementation 'me.relex:circleindicator:2.1.6'
 }
 
 // Kapt configuration block
