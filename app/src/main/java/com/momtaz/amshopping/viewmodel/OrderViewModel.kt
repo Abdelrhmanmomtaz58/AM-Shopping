@@ -25,11 +25,11 @@ class OrderViewModel @Inject constructor(
         viewModelScope.launch {
             _oder.emit(Resource.Loading())
         }
-        firestore.runBatch {batch ->
+        firestore.runBatch {
             //TODO: ADD the oder into user orders collection
             //TODO: add the oder into orders collection
             //TODO: Delete the product from user cart collection
-
+             oder.userid = auth.uid.toString()
             firestore.collection("user")
                 .document(auth.uid!!)
                 .collection("orders")
@@ -38,7 +38,8 @@ class OrderViewModel @Inject constructor(
 
             firestore.collection("orders")
                 .document().set(oder)
-            firestore.collection("user").document(auth.uid!!).collection("cart").get()
+            firestore.collection("user").document(auth.uid!!).collection("cart")
+                .get()
                 .addOnSuccessListener {
                     it.documents.forEach{
                         it.reference.delete()
